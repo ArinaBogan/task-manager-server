@@ -29,14 +29,14 @@ async function patchTaskByIdDB(id, clientObj) {
 
 async function deleteTaskDB(id) {
   const client = await pool.connect();
-  const sql = "DELETE FROM tasks WHERE id =$1 returning *";
+  const sql = `DELETE FROM tasks WHERE id =$1 returning *`;
   const data = (await client.query(sql, [id])).rows;
   return data;
 }
 
 async function getTaskByIdDB(id) {
   const client = await pool.connect();
-  const sql = "SELECT * FROM tasks WHERE id=$1";
+  const sql = `SELECT * FROM tasks WHERE id=$1`;
   const data = (await client.query(sql, [id])).rows;
   return data;
 }

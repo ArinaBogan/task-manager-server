@@ -25,7 +25,7 @@ route.post("/", async (req, res) => {
     const data = await createUsers(name, surname, email, pwd);
     buildResponse(res, 200, data);
   } catch (error) {
-    buildResponse(res, 404, error.message);
+    buildResponse(res, 405, error.message);
   }
 });
 

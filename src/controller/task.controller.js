@@ -61,12 +61,4 @@ route.get("/:id", isValidId, async (req, res) => {
   }
 });
 
-// 1. get by id, update
-// 2. написать validation для user. isValidUserBody
-// (!name, !surname, !email,!pwd, !isNaN(name),!isNaN(surname), pwd.length<8, проверка почты (через регулярку)
-// 3. exception type для user
-// поддерживая стилистику  task
-// например:
-// DB_GET_USERS_NOT_FOUND
-
 module.exports = route;
