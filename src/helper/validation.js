@@ -7,7 +7,7 @@ function isValidUserBody(req, res, next) {
   if (!name) throw new Error(ExceptionType.USER_NAME_IS_EMPTY);
   if (!isNaN(surname)) throw new Error(ExceptionType.USER_SURNAME_INVALID);
   if (!surname) throw new Error(ExceptionType.USER_SURNAME_IS_EMPTY);
-  if (!email) throw new Error(ExceptionType.USER_EMAIL_IS_EMPTY);
+  if (!email) throw new Error(ExceptionType.USER_EMAIL_INVALID);
   if (!/^[A-z-9+\.\_\-+]+@+[a-z]+\.+[a-z]+/gm.test(email))
     throw new Error(ExceptionType.USER_EMAIL_INVALID);
   if (!pwd) throw new Error(ExceptionType.USER_PWD_IS_EMPTY);

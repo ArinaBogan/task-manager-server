@@ -54,7 +54,7 @@ route.delete("/:id", isValidId, async (req, res) => {
 route.get("/:id", isValidId, async (req, res) => {
   try {
     const { id } = req.params;
-    const data = getTaskById(id);
+    const data = await getTaskById(id);
     buildResponse(res, 202, data);
   } catch (error) {
     buildResponse(res, 404, error.message);
