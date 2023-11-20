@@ -17,43 +17,42 @@ async function getUserByIdDB(id) {
 async function createUsersDB(name, surname, email, pwd) {
   const client = await pool.connect();
   try {
-    await client.query('BEGIN');
+    await client.query("BEGIN");
     const sql = `INSERT INTO users(name,surname,email,pwd) values
     ($1,$2,$3,$4) returning*`;
     const data = (await client.query(sql, [name, surname, email, pwd])).rows;
-    await client.query('COMMIT');
+    await client.query("COMMIT");
     return data;
   } catch (error) {
-    await client.query('ROLLBACK');
+    await client.query("ROLLBACK");
     console.log(`createUsersDB:${error.message}`);
     return [];
   }
-
 }
 
 async function updateUserByIdDB(id, name, surname, email, pwd) {
   const client = await pool.connect();
   try {
-    await client.query('BEGIN');
+    await client.query("BEGIN");
     const sql = `update users
     set name=$1, surname=$2, email=$3, pwd=$4
     where id=$5
     returning*`;
-    const data = (await client.query(sql, [name, surname, email, pwd, id])).rows;
-    await client.query('COMMIT');
+    const data = (await client.query(sql, [name, surname, email, pwd, id]))
+      .rows;
+    await client.query("COMMIT");
     return data;
   } catch (error) {
-    await client.query('ROLLBACK');
+    await client.query("ROLLBACK");
     console.log(`updateUserByIdDB:${error.message}`);
     return [];
   }
-
 }
 
 async function patchUserDB(id, clientObj) {
   const client = await pool.connect();
-  try{
-    await client.query('BEGIN');
+  try {
+    await client.query("BEGIN");
     const sql = `select * from users where id=$1`;
     const oldObj = (await client.query(sql, [id])).rows;
     const newObj = { ...oldObj[0], ...clientObj };
@@ -69,20 +68,27 @@ async function patchUserDB(id, clientObj) {
         id,
       ])
     ).rows;
-    await client.query('COMMIT');
+    await client.query("COMMIT");
     return result;
-  }catch(error){
-    await client.query('ROLLBACK');
+  } catch (error) {
+    await client.query("ROLLBACK");
     console.log(`patchUserDB:${error.message}`);
     return [];
   }
-  
 }
 async function deleteUserByIdDB(id) {
   const client = await pool.connect();
-  const sql = `delete from users where id =$1 returning *`;
-  const data = (await client.query(sql, [id])).rows;
-  return data;
+  try {
+    await client.query("BEGIN");
+    const sql = `delete from users where id =$1 returning *`;
+    const data = (await client.query(sql, [id])).rows;
+    await client.query("COMMIT");
+    return data;
+  } catch (error) {
+    await client.query("ROLLBACK");
+    console.log(`deleteUserByIdDB:${error.message}`);
+    return [];
+  }
 }
 
 module.exports = {

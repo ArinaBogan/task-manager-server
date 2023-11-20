@@ -4,7 +4,7 @@ const {
   deleteTaskDB,
   patchTaskByIdDB,
   getTaskByIdDB,
-  updateTaskDB
+  updateTaskDB,
 } = require("../repository/task.repository");
 const ExceptionType = require("../exception/exception");
 
@@ -51,5 +51,5 @@ module.exports = {
   deleteTask,
   patchTaskById,
   getTaskById,
-  updateTask
+  updateTask,
 };
