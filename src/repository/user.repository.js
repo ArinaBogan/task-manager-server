@@ -76,6 +76,7 @@ async function patchUserDB(id, clientObj) {
     return [];
   }
 }
+
 async function deleteUserByIdDB(id) {
   const client = await pool.connect();
   try {

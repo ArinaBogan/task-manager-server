@@ -35,7 +35,6 @@ async function updateUserById(id, name, surname, email, pwd) {
 async function patchUser(id, clientObj) {
   const data = await patchUserDB(id, clientObj);
   if (!data.length) throw new Error(ExceptionType.DB_PATCH_USER_NOT_PATCH);
-  return data;
 }
 
 async function deleteUserById(id) {
