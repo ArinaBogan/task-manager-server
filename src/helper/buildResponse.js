@@ -3,4 +3,3 @@ function buildResponse(res, code, message) {
 }
 
 module.exports = buildResponse;
-

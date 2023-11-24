@@ -42,7 +42,6 @@ route.put("/:id", isValidId, isValidTaskBody, async (req, res) => {
   }
 });
 
-
 route.patch("/:id", isValidId, isValidTaskBody, async (req, res) => {
   try {
     const { id } = req.params;
