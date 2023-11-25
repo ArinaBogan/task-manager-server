@@ -27,6 +27,11 @@ const ExceptionType = {
   DB_PUT_TASK_NOT_UPDATE: "task does not update",
   DB_DELETE_TASK_NOT_DELETE: "task does not delete",
   DB_PATCH_TASK_NOT_PATCH: "task does not patch",
+
+  DB_POST_USER_API_NOT_FOUND: "user has already exist",
+  DB_POST_API_NOT_CREATE: "user does not create",
+  DB_API_USER_BY_EMAIL: "email is not found",
+  PWD_HASHED_MATCH: "password does not match",
 };
 
 module.exports = ExceptionType;

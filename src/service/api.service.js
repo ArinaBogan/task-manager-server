@@ -1,4 +1,5 @@
 const bcrypt = require("bcrypt");
+const Exceptiontype = require("../exception/exception");
 const {
   getUserByEmail,
   createUserDB,
@@ -7,13 +8,23 @@ const salt = 10;
 
 async function createUser(name, surname, email, pwd) {
   const user = await getUserByEmail(email);
-  if (user.length) throw new Error("user has already exist");
+  if (user.length) throw new Error(Exceptiontype.DB_POST_USER_API_NOT_FOUND);
 
   const hashPWD = await bcrypt.hash(pwd, salt);
 
   const data = await createUserDB(name, surname, email, hashPWD);
-  if (!data.length) throw new Error("not created");
+  if (!data.length) throw new Error(Exceptiontype.DB_POST_API_NOT_CREATE);
   return data;
 }
 
+async function authUser(email, pwd) {
+  const user = await getUserByEmail(email);
+  if (!user.length) throw new Error(Exceptiontype.DB_API_USER_BY_EMAIL);
+
+  const pwdUserHash = user[0].pwd;
+
+  if (!(await bcrypt.compare(pwd, pwdUserHash)))
+    throw new Error(Exceptiontype.PWD_HASHED_MATCH);
+  return user;
+}
 module.exports = { createUser, authUser };
